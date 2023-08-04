@@ -1,46 +1,61 @@
 import PropTypes from 'prop-types';
-import css from './Profile.module.css';
+import {
+  AvatarUser,
+  Container,
+  UserName,
+  UserTag,
+  UserGeo,
+  StatUser,
+  Label,
+  Quantity,
+  StatList,
+} from './Profile.styled';
 
-export const Profile = ({
-  avatar,
-  username,
-  tag,
-  location,
-  followers,
-  views,
-  likes,
-}) => (
-  <div key={username} className={css.profile}>
-    <div className={css.description}>
-      <img src={avatar} alt="User avatar" className={css.avatar} />
-      <p className={css.profileName}>{username}</p>
-      <p className={css.profileTag}>@{tag}</p>
-      <p className={css.profileLocation}>{location}</p>
-    </div>
+export const Profile = ({ user }) => {
+  const {
+    username,
+    tag,
+    location,
+    avatar,
+    stats: { followers, views, likes },
+  } = user;
+  return (
+    <Container key={username}>
+      <div>
+        <AvatarUser src={avatar} alt="User avatar" />
+        <UserName>{username}</UserName>
+        <UserTag>@{tag}</UserTag>
+        <UserGeo>{location}</UserGeo>
+      </div>
 
-    <ul className={css.stats}>
-      <li className={css.followersList}>
-        <span className={css.label}>Followers</span>
-        <span className={css.quantity}>{followers}</span>
-      </li>
-      <li className={css.viewsList}>
-        <span className={css.label}>Views</span>
-        <span className={css.quantity}>{views}</span>
-      </li>
-      <li className={css.likesList}>
-        <span className={css.label}>Likes</span>
-        <span className={css.quantity}>{likes}</span>
-      </li>
-    </ul>
-  </div>
-);
+      <StatUser>
+        <StatList>
+          <Label>Followers</Label>
+          <Quantity>{followers}</Quantity>
+        </StatList>
+        <StatList>
+          <Label>Views</Label>
+          <Quantity>{views}</Quantity>
+        </StatList>
+        <StatList>
+          <Label>Likes</Label>
+          <Quantity>{likes}</Quantity>
+        </StatList>
+      </StatUser>
+    </Container>
+  );
+};
 
 Profile.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  followers: PropTypes.number.isRequired,
-  likes: PropTypes.number.isRequired,
-  views: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+    stats: PropTypes.shape({
+      followers: PropTypes.number.isRequired,
+      views: PropTypes.number.isRequired,
+      likes: PropTypes.number.isRequired,
+    }),
+  }),
 };
