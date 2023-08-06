@@ -11,6 +11,4 @@ export const Box = styled.ul`
   padding-left: 0;
   margin: 0 auto;
   padding: 10px;
-
-  background-color: #e8855b;
 `;

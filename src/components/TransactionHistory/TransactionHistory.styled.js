@@ -43,7 +43,7 @@ export const TableRow = styled.tr`
   background-color: ${props => {
     switch (props.type) {
       case 'invoice':
-        return '#b0d558';
+        return '#fffff';
       case 'payment':
         return '#a5ecea';
       case 'withdrawal':
